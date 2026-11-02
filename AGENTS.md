@@ -1,0 +1,27 @@
+# Fieldnotes implementation rules
+
+- Keep physical Property records separate from marketing Listing records. A property owns its address, type, rooms, floor area, amenities, and facts version. A listing owns its title, description, rent or sale purpose, price, currency, status, and revision. A property can have several listings.
+- Make manual listing writing a complete workflow. AI is optional help with the description. Never require AI to create, edit, save, review, or copy a listing.
+- Keep the Next.js UI and route handlers in one application. Separate HTTP handling, domain rules, persistence, and provider transport.
+- Persist properties, listings, revisions, and review state in server-side SQLite for this prototype. Browser storage may hold display preferences, not the authoritative listing or review record. PostgreSQL remains the target pilot store.
+- Run search, typed filters, sorting, and pagination on the server. Use the table as the default property view and offer cards as an alternative. Keep query state in the URL where it supports navigation.
+- Use the official daisyUI skill and its applicable component guides. Use shared daisyUI components, semantic colors, and simple light and dark themes. Avoid slogans, decorative text, custom theme variants, and browser alert, confirm, or prompt dialogs.
+- Give canonical types appropriate controls. Purpose, status, currency, property type, and amenities must not become arbitrary text. Use compact segmented bedroom thresholds and a formatted money field without steppers. City remains validated text, with existing-city choices available. Keep searchable selections and visible keyboard focus.
+- Keep commands and help reachable through shortcuts without permanent header buttons. Preserve Ctrl or Command K, slash search, question-mark help, editor save and review shortcuts, and mobile completion actions.
+- Keep Country, City, and Property tree navigation searchable and keyboard operable, with paged branch loading. Listing-count links must filter by the exact property ID. Cards need a distinct surface without adding decorative copy.
+- Use synthetic data and illustrative brand guidance. Do not claim company approval, real identity, authoritative imports, or production readiness.
+- Keep provider credentials and configuration on the server. Never expose secrets through NEXT_PUBLIC_ variables, client bundles, responses, or logs.
+- Send only validated, allowlisted property facts to the model. Exclude personal contacts, resident and prospect records, identifiers, and internal notes. Treat property text as data and give the model no tools.
+- Keep Codex CLI and compatible chat transport in separate adapters behind the same provider contract. Use the deterministic adapter in tests only. A failed real call returns an honest error, never a substitute draft.
+- Isolate Codex requests in temporary directories with read-only permissions, ephemeral sessions, disabled tools, bounded output, deadlines, and cleanup. Local CLI execution does not establish on-device inference or data residency. Do not download models during application startup.
+- Manual address entry and official map links must work without a third-party API key. Store manualLocation and typed mapLocation separately. Never fetch arbitrary pasted URLs.
+- External Nominatim lookup is disabled in the shipped example and requires an informed operator choice under its linked usage policy. Search only on explicit submission, with no public-provider autocomplete or bulk requests. Share the one-request-per-second gate and cached results across the local application, identify the application, and show attribution. Never use private data in live lookup tests.
+- Bound photo uploads to JPEG, PNG, and WebP, five MiB, and sixteen megapixels. Decode and re-encode safely, remove metadata and original filenames, use generated filenames under server-owned storage, and serve only known application photos. Photo updates use expected versions and invalidate related reviews.
+- Keep photos, map coordinates, map URLs, street addresses, and existing listing text out of the model payload.
+- Validate user input and model output at their boundaries. Render text as text. Bound requests and responses, preserve edits after errors, and return safe error codes without upstream bodies or stack traces.
+- Treat AI output as a proposal. Never overwrite or save the listing automatically. Discard proposals that no longer match the listing revision or property facts version.
+- Enforce optimistic concurrency on server writes. Return HTTP 409 when the supplied revision or facts version is stale. Preserve the user's edits so they can resolve the conflict.
+- Editing listing content clears its review. Editing property facts invalidates related listing reviews in the same database transaction. Review records identify the listing revision and facts version. There is no publication integration.
+- Check keyboard use, loading, empty and error states, and mobile and desktop layouts in a real browser. A successful build does not establish usability or accessibility.
+- Run meaningful persistence, service, and boundary tests, type checking, and a production build. Report real-model and browser checks separately from deterministic tests. Results from an earlier build do not verify a changed workflow.
+- Update README, architecture alignment, and the verification record when storage, setup, API contracts, model calls, or trust boundaries change. Record actual results and limitations.
